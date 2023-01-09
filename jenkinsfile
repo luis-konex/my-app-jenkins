@@ -36,6 +36,7 @@ pipeline {
       steps {
           withAWS(region:'us-east-1',credentials:'AWS_CREDENTIALS_ID') {
           //    s3Upload(pathStyleAccessEnabled: true, payloadSigningEnabled: true, file:'buid', bucket:'test.rea')
+            s3Upload(bucket: 'test.rea', workingDir:'build', includePathPattern:'**/*');
           }
       }
     }
