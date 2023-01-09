@@ -15,20 +15,20 @@ pipeline {
   stages {
     stage('install') {
       steps {
-        git branch: 'main', url: 'https://github.com/luis-konex/testtwo.git'
-        dir('frontend') {
-          bat 'npm install'
-        }
+        git branch: 'main', url: 'https://github.com/luis-konex/my-app-jenkins.git'
+        //dir('frontend') {
+        bat 'npm install'
+        //}
       }
     }
 
-    stage('test') {
+    /*stage('test') {
       steps {
         dir('frontend') {
           bat 'npm run test'
         }
       }
-    }
+    }*/
 
   }
 
