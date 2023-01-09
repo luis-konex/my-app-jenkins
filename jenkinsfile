@@ -23,7 +23,7 @@ pipeline {
     stage('test') {
       steps {
         //dir('frontend') {
-        bat 'npm run test'
+        bat 'npm test'
         //}
       }
     }
