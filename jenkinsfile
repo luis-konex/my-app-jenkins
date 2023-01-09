@@ -20,11 +20,15 @@ pipeline {
       }
     }
 
-    stage('test') {
+    /*stage('test') {
       steps {
-        //dir('frontend') {
         bat 'npm test'
-        //}
+      }
+    }*/
+
+    stage('build') {
+      steps {
+        bat 'npm run build'
       }
     }
 
