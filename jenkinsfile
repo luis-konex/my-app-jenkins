@@ -1,53 +1,22 @@
 pipeline {
-  agent any
-
-  tools {
-    nodejs "node"
-  }
-
-  /*parameters {
-    string(name: 'container_name', defaultValue: 'pagina_web', description: 'Nombre del contenedor de docker.')
-    string(name: 'image_name', defaultValue: 'pagina_img', description: 'Nombre de la imagene docker.')
-    string(name: 'tag_image', defaultValue: 'lts', description: 'Tag de la imagen de la página.')
-    string(name: 'container_port', defaultValue: '80', description: 'Puerto que usa el contenedor')
-  }*/
-
-  stages {
-    stage('install') {
-      steps {
-        git branch: 'qa', url: 'https://github.com/luis-konex/my-app-jenkins.git'
-        bat 'npm install'
-      }
-    }
-
-    /*stage('test') {
-      steps {
-        bat 'npm test'
-      }
-    }*/
-
-    stage('build') {
-      steps {
-        bat 'npm run build'
-      }
-    }
-
-    stage('Upload to AWS') {
-      steps {
-          withAWS(region:'us-east-1',credentials:'AWS_CREDENTIALS_ID') {
-            //    s3Upload(pathStyleAccessEnabled: true, payloadSigningEnabled: true, file:'buid', bucket:'test.rea')
-            // s3Upload(bucket: 'test.rea', workingDir:'build', includePathPattern:'**/*');
-            //s3Delete(bucket: 'test.rea', path:'**/*')
-            s3Upload bucket: "test.rea" path: "build"
-          }
-      }
-    }
-
-
-
-
-
-
-  }
-
+     agent any
+     stages {
+         stage('Build') {
+             steps {
+                 bat 'echo "Hello World"'
+                 bat '''
+                     echo "Multiline shell steps works too"
+                     ls -lah
+                 '''
+             }
+         }      
+         stage('Upload to AWS') {
+              steps {
+                  withAWS(region:'us-east-1',credentials:'AWS_CREDENTIALS_ID') {
+                  bat 'echo "Uploading content with AWS creds"'
+                      s3Upload(pathStyleAccessEnabled: true, payloadSigningEnabled: true, file:'app.py', bucket:'test.rea')
+                  }
+              }
+         }
+     }
 }
